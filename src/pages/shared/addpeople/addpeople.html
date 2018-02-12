@@ -1,0 +1,196 @@
+<ion-header>
+  <ion-navbar color="toolbarclr" text-center></ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid class="grid-bg regfrm">
+      <h3 text-center>{{"Add People" | translate}}</h3>
+      <p>{{"Fields marked with * are mandatory" | translate}}</p>
+      <form [formGroup]="addpeopleform" (ngSubmit)="onSubmit(addpeopleform.value)">
+        <ion-list>
+                <ion-item>
+                        <ion-label>Role*</ion-label>
+                        <ion-select interface="popover"  formControlName="role_name"   [(ngModel)]="userRegData.role_name" (ionChange)="rolechange($event)">
+                          <ion-option *ngFor="let item of rolelist; let i = index" value={{item.id}} >{{item.name}}</ion-option>
+                        </ion-select>
+                      </ion-item>
+            </ion-list>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="text" placeholder="* First Name" [(ngModel)]="userRegData.first_name" formControlName="first_name" name="first_name"
+                      required></ion-input>
+              </ion-col>
+              <span *ngIf="first_name.errors && first_name.touched" class="errorblock">
+                          First Name field is required
+                  </span>
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="text" placeholder="* Last Name" [(ngModel)]="userRegData.last_name" formControlName="last_name" name="last_name"
+                      required></ion-input>
+              </ion-col>
+              <span *ngIf="last_name.errors && last_name.touched" class="errorblock">
+                               Last Name field is required
+                       </span>
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="email" placeholder="* Email" [(ngModel)]="userRegData.email" formControlName="email" name="email" required></ion-input>
+              </ion-col>
+              <div class="errorblock" *ngIf="email.errors && email.touched">
+                  <span *ngIf="addpeopleform.get('email').hasError('email') && !email.errors.required">Please enter the correct email.</span>
+                  <span *ngIf="email.errors.required">Email is required</span>
+              </div>
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="text" placeholder="* Phone" [(ngModel)]="userRegData.phone" formControlName="phone" name="phone" required></ion-input>
+              </ion-col>
+              <span *ngIf="phone.errors && phone.touched" class="errorblock">
+                      Phone field is required
+                   </span>
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-datetime displayFormat="MM/DD/YYYY" (ionChange)="onKeyUp()" placeholder="* Date of birth" [(ngModel)]="userRegData.date_of_birth"
+                      formControlName="date_of_birth" name="date_of_birth" required> </ion-datetime>
+              </ion-col>
+              <div class="errorblock" *ngIf="date_of_birth.errors && date_of_birth.touched">
+                  <span *ngIf="date_of_birth.errors.required">Date of birth is required</span>
+              </div>
+          </ion-row>
+          <ion-row radio-group [(ngModel)]="userRegData.gender" formControlName="gender">
+
+              <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center no-padding>
+                  <ion-item no-lines>
+                      <ion-label>Male</ion-label>
+                      <ion-radio value="m" name="gender" checked="true"></ion-radio>
+                  </ion-item>
+              </ion-col>
+
+              <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center no-padding>
+                  <ion-item no-lines>
+                      <ion-label>Female</ion-label>
+                      <ion-radio value="f" name="gender"></ion-radio>
+                  </ion-item>
+              </ion-col>
+
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="password" placeholder="* Password" [(ngModel)]="userRegData.password" formControlName="password" name="password"
+                      required></ion-input>
+              </ion-col>
+              <span *ngIf="password.errors && password.touched" class="errorblock">Password field is required</span>
+              <!-- {{password.errors.mismatch | json}} -->
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="password" placeholder="* Confirm password" [(ngModel)]="userRegData.confirm_password" formControlName="confirm_password"
+                      name="confirm_password" required></ion-input>
+              </ion-col>
+
+              <span *ngIf="confirm_password.errors && confirm_password.touched" class="errorblock">Confirm Password field is required</span>
+              <span *ngIf="addpeopleform._errors  && confirm_password.touched" class="errorblock">Confirm Password mismatch</span>
+
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="text" placeholder="House Number" [(ngModel)]="userRegData.user_house_nubmer" formControlName="user_house_nubmer"
+                      name="user_house_nubmer"></ion-input>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="text" placeholder="* Street" [(ngModel)]="userRegData.user_street" formControlName="user_street" name="user_street"
+                      required></ion-input>
+              </ion-col>
+              <span *ngIf="user_street.errors && user_street.touched" class="errorblock">Street field is required</span>
+          </ion-row>
+       <ion-list>
+
+              <ion-item>
+                  <select-searchable [(ngModel)]="userRegData.user_country" title="* Country" itemValueField="id" itemTextField="name" [items]="countryNames"
+                      [canSearch]="true" searchPlaceholder="Enter 3 or more characters, e.g. &quot;san&quot;" (onSearch)="searchCountry($event)"
+                      (onChange)="countryChange($event)" formControlName="user_country">
+                  </select-searchable>
+              </ion-item>
+              <span *ngIf="user_country.errors && user_country.touched" class="errorblock">Please select country</span>
+          </ion-list>
+              <ion-list>
+
+              <ion-item>
+                  <select-searchable [(ngModel)]="userRegData.user_state" title="* State" itemValueField="id" itemTextField="state_name" [items]="stateName"
+                      searchPlaceholder="Enter 3 or more characters, e.g. &quot;san&quot;" (onChange)="stateChange($event)"
+                      formControlName="user_state">
+                  </select-searchable>
+              </ion-item>
+              <span *ngIf="user_state.errors && user_state.touched" class="errorblock">Please select state</span>
+          </ion-list>
+          <ion-list>
+
+              <ion-item>
+                  <select-searchable [(ngModel)]="userRegData.user_city" title="* Cities" itemValueField="id" itemTextField="city" [items]="cityName"
+                      searchPlaceholder="Enter 3 or more characters, e.g. &quot;san&quot;" (onChange)="cityChange($event)"
+                      formControlName="user_city">
+                  </select-searchable>
+              </ion-item>
+              <span *ngIf="user_city.errors && user_city.touched" class="errorblock">Please select city</span>
+          </ion-list>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="text" placeholder="* Zip" [(ngModel)]="userRegData.user_zip" formControlName="user_zip" name="user_zip"
+                      required> </ion-input>
+              </ion-col>
+              <span *ngIf="user_zip.errors && user_zip.touched" class="errorblock">Zip field is required</span>
+          </ion-row>
+          <!-- <ion-list>
+              <ion-item>
+                  <ion-label>Bank</ion-label>
+                  <ion-select [(ngModel)]="userRegData.user_bank" formControlName="user_bank" name="user_bank" interface="popover">
+                      <ion-option value="1">American Express</ion-option>
+                      <ion-option value="2">HSBC</ion-option>
+                  </ion-select>
+              </ion-item>
+          </ion-list> -->
+
+          <ion-row style="border:0.55px solid #ddd">
+            <ion-col col-3>
+                <span class="autocompbank">Bank</span>
+                </ion-col>
+            <ion-col col-9><ion-searchbar [(ngModel)]="searchedtext"  [ngModelOptions]="{standalone: true}"
+              placeholder="Filter Items with Cancel"
+              [showCancelButton]="shouldShowCancel"
+              (ionInput)="getItems($event)"
+              (ionCancel)="onCancel($event)">
+            </ion-searchbar></ion-col>
+        </ion-row>
+        <ion-list *ngIf="showbanklistif">
+            <!-- <ion-item *ngFor="let item of filteredbanklist">
+                              {{ item }}
+                            </ion-item> -->
+            <button no-padding class="banknamebtn" ion-item *ngFor="let item of filteredbanklist" (click)="bankSelected(item,$event)">
+                {{ item }}
+            </button>
+        </ion-list>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="text" placeholder="TRR (bank accout)" [(ngModel)]="userRegData.user_bank_accout" formControlName="user_bank_accout"
+                      name="user_bank_accout"> </ion-input>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                  <ion-input type="text" placeholder="Tax number" [(ngModel)]="userRegData.user_tax_number" formControlName="user_tax_number"
+                      name="user_tax_number"></ion-input>
+              </ion-col>
+          </ion-row>
+    
+          <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                <ion-input type="text" placeholder="Paypal ({{'optional' | translate}})" [(ngModel)]="userRegData.user_paypal" formControlName="user_paypal"
+                    name="user_paypal"></ion-input>
+            </ion-col>
+                
+          <button ion-button full color="loginbtn" [disabled]="!addpeopleform.valid">Add Company User</button>
+      </form>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,59 @@
+editoffer {
+    .errorblock {
+        color:#E61616;
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+    }
+        .list-header {
+        background-color:transparent;
+        color:#333;
+        border:0px;
+    }
+    .item {
+        padding-left:0px;
+        color:#333;
+        background-color:transparent;
+        margin-bottom: 0;   
+    }
+    .list .item-block .item-inner {
+         border-bottom: 0.55px solid #ddd;
+        font-size:1.4rem !important;
+       
+    }
+    .item p{
+        color:#333 !important;
+    }
+    .label{
+        font-size:1.4rem !important;
+        padding-left:5px;
+        color:#333 !important;
+    }
+    .col{
+        padding-left:0px;
+    }
+    .item-input .label, .item-input-has-focus .label, .input-has-focus .label{
+        color:#333 !important;
+    }
+    .item-md.item-input.item-input-has-focus .item-inner,
+    .item-md.item-input.input-has-focus .item-inner {
+      border-bottom-color: #ddd;
+      -webkit-box-shadow: inset 0 -1px 0 0 #ddd;
+      box-shadow: inset 0 -1px 0 0 #ddd;
+    }
+    
+    .list-md .item-input.item-input-has-focus:last-child,
+    .list-md .item-input.input-has-focus:last-child {
+      border-bottom-color: #ddd;
+      -webkit-box-shadow: inset 0 -1px 0 0 #ddd;
+      box-shadow: inset 0 -1px 0 0 #ddd;
+    }
+    .grid {
+        padding:0px;
+    }
+    ion-item-group  .button{
+        background: #FF7F00 !important;
+    }
+    ion-item.no-line > .item-inner {
+        border-bottom: none !important;
+    }
+}

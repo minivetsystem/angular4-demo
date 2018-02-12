@@ -1,0 +1,179 @@
+<ion-header>
+    <ion-toolbar color="toolbarclr">
+      <ion-title>
+        {{"Offer Details" | translate}}
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text  showWhen="ios">Cancel</span>
+          <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+
+  </ion-header>
+
+    <ion-content padding>
+<!-- 
+         
+      {
+  "product_name": "test123",
+  "brand_name": "Nike",
+  "offerID": 7,
+  "desc": "1",
+  "seller_comp": "Nike Primorska",
+  "offer_price": "500.00",
+  "share": "0.2",
+  "earning": "100",
+  "offer_bonus_type": "",
+  "show_buy_button": "0",
+  "images": [
+    {
+      "id": 22,
+      "offer_id": "7",
+      "file_name": "a5400055e860378610ae7583caf23264.png",
+      "is_temp": "0",
+      "session_id": null,
+      "created_at": "2017-11-16 03:45:18",
+      "updated_at": "-0001-11-30 00:00:00",
+      "deleted_at": "0000-00-00 00:00:00"
+    }
+  ],
+  "characteristics": [
+    {
+      "id": 19,
+      "offer_id": "7",
+      "name": "1",
+      "created_at": "2017-11-16 03:45:18",
+      "updated_at": null
+    }
+  ]
+}
+ -->
+      <ion-list wrap>
+          <ion-item>
+              <ion-card>
+                  <ion-slides pager>
+                      <ion-slide *ngFor="let image of offeritem.images">
+                          <img  src="{{image.paths.large}}" /> 
+                      </ion-slide>
+                    </ion-slides>
+             
+                  <ion-card-content>
+                      <ion-card-title>
+                          {{offeritem.product_name}}
+                      </ion-card-title>
+                      <p text-wrap>{{offeritem.desc | truncate:[100]}}</p>
+                      <ion-grid>
+                         
+                          <ion-row>
+                              <ion-col text-left><span class="offer-label"> {{"The Seller" | translate}}:</span><span class="offer-meta">{{ offeritem.seller_comp }}</span></ion-col>
+                              </ion-row>
+                          <ion-row>
+                              <ion-col text-left><span class="offer-label">{{"Brand"  | translate}}: </span><span class="offer-meta">{{ offeritem.brand_name }}</span></ion-col>
+                              <ion-col><span class="offer-label">{{"Offer ID"  | translate}}:</span><span class="offer-meta">{{offeritem.offerID}}</span></ion-col>
+                            </ion-row>
+                      </ion-grid>
+                      <h4>Cena:{{ offeritem.offer_price  | currency:'EUR':true }}</h4>
+                      <ion-grid>
+                          <ion-row>
+                              <ion-col text-left><span class="offer-label">{{"My Share"  | translate}}: </span><span class="offer-meta" *ngIf="offeritem.offer_bonus_type=='static'">{{ (offeritem.offer_bonus/offeritem.offer_price)  | percent:'2.1-2':'it-IT'}}</span></ion-col>
+                              <ion-col><span class="offer-label">{{"My Earnings"  | translate}}: </span><span class="offer-meta" *ngIf="offeritem.offer_bonus_type=='static'">{{offeritem.earning  | currency:'EUR':true}}</span><span *ngIf="offeritem.offer_bonus_type=='dynamic'" class="offer-meta">--</span></ion-col>
+                            </ion-row>
+                      </ion-grid>
+                  </ion-card-content>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col text-center>
+                        <button ion-button round color="offerbtn"  (click)="ShareIt(offeritem.offer_bonus,offeritem.offer_bonus/offeritem.offer_price,offeritem.offer_bonus_type,offeritem.offerID)">Priporoči</button>
+                      </ion-col>
+                      <ion-col *ngIf="offeritem.show_buy_button != '0' && offeritem.show_buy_button != '' "  text-center>
+                        <button ion-button round color="secondary">Buy</button>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+              </ion-card>
+          </ion-item>
+      </ion-list>
+                               <!-- segments -->
+                               <ion-card>
+                                  <!-- <ion-card-header>
+                                    {{ safari }}
+                                  </ion-card-header> -->
+                                  <ion-card-content>
+                                    <ion-segment [(ngModel)]="offermetatab" color="toolbarclr">
+                                      <ion-segment-button value="desc">
+                                        {{"Description" | translate}}
+                                      </ion-segment-button>
+                                      <ion-segment-button value="review" >
+                                        {{"Reviews" | translate}}
+                                      </ion-segment-button>
+                                    </ion-segment>
+                                    <ion-list margin-top margin-bottom *ngIf="offermetatab == 'desc'" no-lines >
+                                      <ion-item margin-bottom>
+                                          <h4>{{offeritem.offer_title}}</h4>
+                                          <p text-wrap>{{offeritem.desc}}</p>
+                                      </ion-item>
+                                        <ion-item *ngIf="offeritem.aditional_informations" margin-bottom>
+                                            <h4>{{"Additional Information" | translate}}</h4>
+                                            {{offeritem.aditional_informations}}
+                                            </ion-item>
+                                       
+                                            <ion-item *ngIf="offeritem.delivery_and_warranty" margin-bottom>
+                                                <h4>{{"Delivery and warranty" | translate}}</h4>
+                                                {{offeritem.delivery_and_warranty}}
+                                            </ion-item>
+                                            <ion-item *ngIf="offeritem.specifications" margin-bottom>
+                                              <h4>{{"Specifications" | translate}}</h4>
+                                                {{offeritem.specifications}}
+                                            </ion-item>
+                                      <ion-item *ngIf="offeritem.characteristics" margin-bottom>
+                                       <h4>{{"Offer Characteristics" | translate}}</h4>
+                                        <!-- characteristics -->
+                                        <ul *ngFor="let sItem of getOfferMeta(offermetatab)[0]">
+                                          <li>{{ sItem.name }}</li>
+                                        </ul>
+                                      </ion-item>
+                                     
+                                     
+                                    </ion-list>
+                                    <form [formGroup]="addreviewForm" (submit)="add_reviewForm()">
+                                      <ion-list margin-top margin-bottom *ngIf="offermetatab == 'review'" no-lines>
+                                        <ion-item>
+                                          <ion-label color="dark" stacked>{{"Write a review" | translate}} :</ion-label>
+                                          <ion-textarea placeholder="{{'Enter a description' | translate}}" rows="6" formControlName="reviewcontent"   [(ngModel)]="reviewcontent" required></ion-textarea>
+                                        </ion-item>
+                                        <div text-center *ngIf="addreviewForm.controls.reviewcontent.errors">
+                                                <span *ngIf="addreviewForm.controls.reviewcontent.touched && !addreviewForm.controls.reviewcontent.required" class="errorblock">
+                                                {{"Review content is required" | translate}}</span>
+                                       </div>
+                                        <button ion-button block color="loginbtn" [disabled]="!addreviewForm.valid">Submit</button>
+                                      </ion-list>
+                                    </form>
+                                    <ion-list margin-top margin-bottom *ngIf="offermetatab == 'review'" no-lines>
+                                        <ion-item *ngFor="let reviewitem of getOfferMeta(offermetatab)[0]">
+                                      
+                                          <ion-thumbnail item-start>
+                                            <img src="{{reviewitem.user.images.small}}">
+                                          </ion-thumbnail>
+                                          <ion-grid>
+                                            <ion-row>
+                                              <ion-col><h2>{{reviewitem.user.profile.fullname}}</h2></ion-col>
+                                              <ion-col><p>{{reviewitem.created_at | date:'dd.mm.yyyy'}}</p></ion-col>
+                                            </ion-row>
+                                          </ion-grid>
+                                          <ion-grid>
+                                            <ion-row>
+                                              <ion-col>
+                                                <p text-wrap>{{reviewitem.comment}}</p>
+                                              </ion-col>
+                                            </ion-row>
+                                          </ion-grid>
+                                        
+                                          <button *ngIf="reviewitem.user.id == loggedinuserid" ion-button small color="primary" icon-left (click)="edit_review(reviewitem.id)"><ion-icon name="create"></ion-icon> Edit</button>
+                                          <button *ngIf="reviewitem.user.id == loggedinuserid" ion-button small color="danger" icon-left (click)="delete_review(reviewitem.id)"><ion-icon name="trash" ></ion-icon> Delete</button>
+                                        </ion-item>
+                                      </ion-list>
+                                  </ion-card-content>
+                                </ion-card>
+    </ion-content>

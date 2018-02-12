@@ -1,0 +1,30 @@
+page-login {
+       .bar-button-default-ios,
+       .bar-button-default.bar-button-ios-default,
+       .bar-button-clear-ios-default {
+         color: #fff;
+         background-color: transparent;
+       }
+       .bar-button-default-md, .bar-button-clear-md-default, .bar-button-md-default {
+        color: #fff;
+        background-color: transparent;
+        }
+        .bar-button-default-wp, .bar-button-clear-wp-default, .bar-button-wp-default {
+            color: #fff;
+            background-color: transparent;
+        }
+        .toolbar-title{
+            color:#fff;
+        }
+        .input{
+            border-bottom:1px solid #ddd;
+        }
+        .errorblock {
+            color:#E61616;
+            font-size: 1.2rem;
+            margin-bottom: 0.6rem;
+        }
+        .list {
+            margin-bottom: 0px !important  ;
+        }
+}

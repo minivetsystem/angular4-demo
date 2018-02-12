@@ -1,0 +1,40 @@
+<!--
+  Generated template for the DeptmodalpagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-toolbar color="toolbarclr">
+      <ion-title>
+        {{"Add People To Department" | translate}}
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text  showWhen="ios">Cancel</span>
+          <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+          <ion-list>
+              <ion-item>
+                  <ion-label item-start>
+                      <strong>{{"Add People" | translate}}</strong>
+                    </ion-label>
+                </ion-item>
+                <ion-item *ngIf="!employeedata">
+                    NO record found
+                </ion-item>
+              <ion-item  *ngFor="let item of employeedata">
+                  <ion-label item-start>
+                    {{item.user.first_name }} {{item.user.last_name}}
+                    </ion-label>
+                  <button ion-button color="dark" item-end (click)="addppltodept(item.user_id)">
+                      + {{"Add" | translate}}
+                    </button>
+                </ion-item>
+    </ion-list>
+  </ion-content>  

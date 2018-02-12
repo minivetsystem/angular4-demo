@@ -1,0 +1,50 @@
+vendorprofile-modal {
+    .errorblock {
+        color:#E61616;
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+    }
+    .list {
+        margin-bottom:1px;  
+    }
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block ,
+    .list-md > .item-block:last-child, .list-md > .item-wrapper:last-child .item-block {
+        border: 0.55px solid #c8c7cc;
+    }
+    .item-md, .item-ios {
+        border: 1px solid #ddd !important;
+        margin-bottom: 3px;
+    }
+    .searchbar-ios,.searchbar-md {
+        padding: 0 8px;
+        min-height: 34px;
+        border-top: 0;
+        border-bottom: 0;
+        background: none;
+    }
+    .autocompbank{
+        line-height: 2.5em;
+        display: inline-block;
+        margin-left: 0.9rem;
+    }
+    .banknamebtn{
+        background-color:#c8c7cc;
+    }
+    .banknamebtn .label-ios,.banknamebtn .label.md{
+        font-size: 1.5rem;
+        padding-left: 16px;
+    }
+    .friendlist  h2 {
+        color: #333333;
+        text-align:center;
+        text-transform: uppercase;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin: 10px 0;
+      }
+      .friendlist ion-avatar img {
+        width: 100px;
+        height: 100px;
+        margin:0 auto;
+    }
+}

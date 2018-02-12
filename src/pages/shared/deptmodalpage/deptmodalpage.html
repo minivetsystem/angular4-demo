@@ -1,0 +1,38 @@
+<!--
+  Generated template for the DeptmodalpagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-toolbar color="toolbarclr">
+    <ion-title>
+      {{"Add" | translate}} {{"Department" | translate}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text  showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <form [formGroup]="adddeptForm" (submit)="add_deptForm()">
+    <ion-list>
+  <ion-item>
+    <ion-label color="default" floating>{{"Department Name" | translate}}</ion-label>
+    <ion-input type="text" formControlName="deptname"   [(ngModel)]="deptname" required></ion-input>
+  </ion-item>
+<div text-center *ngIf="adddeptForm.controls.deptname.errors">
+  
+      <span *ngIf="adddeptForm.controls.deptname.touched && !adddeptForm.controls.deptname.required" class="errorblock">
+      {{"Department Name" | translate}} {{"Field is required" |translate}}</span>
+        
+      </div>
+  </ion-list>
+  <button ion-button full color="loginbtn" [disabled]="!adddeptForm.valid">{{"Add Company Department" |translate}}</button>
+  
+</form>
+</ion-content>  

@@ -1,0 +1,111 @@
+<ion-header>
+  <ion-toolbar color="toolbarclr">
+    <ion-title>
+      {{"Providers" | translate}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <!-- <ion-toolbar no-border-top>
+                    <ion-searchbar (ionInput)="getItems($event)" debounce="500" (ionClear)="clearclicked()" animated=true placeholder="search by product name..."></ion-searchbar>
+       </ion-toolbar> 
+   -->
+  <ion-list class="accordion-list">
+    <ion-list-header *ngFor="let item of information; let i = index" no-padding>
+      <ion-grid>
+        <ion-row nowrap>
+          <ion-col>
+            <button text-uppercase ion-item (click)="toggleSection(i,item.id)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
+              <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
+              <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+              {{ item.company_name }}
+            </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-list *ngIf="item.open" no-lines>
+        <ion-item nowrap>
+          <ion-scroll scrollX="false" scrollY="true" style="width: 100%;height:500px;">
+            <div id="vwrapper">
+              <ion-grid>
+                <div *ngIf="item.cofferlength > 0; else elseBlock">
+                  <ion-list wrap>
+                    <ion-item *ngFor="let offeritem of item.offers">
+                      <ion-card>
+                        <ion-spinner *ngIf="!offeritem.images[0].paths.large"></ion-spinner>
+                         <img *ngIf="offeritem.images[0].paths.large" src="{{offeritem.images[0].paths.large }}" (click)="singleofferpage(offeritem.id)" />
+                        <ion-card-content>
+                          <ion-card-title>
+                            {{offeritem.offer_title}}
+                          </ion-card-title>
+                          <p text-wrap>{{offeritem.offer_description | truncate:[100]}}</p>
+                          <h4 *ngIf="offeritem.offer_bonus_type=='static'">{{ offeritem.offer_price | currency:'EUR':true}}</h4>
+                          <h4 *ngIf="offeritem.offer_bonus_type=='dynamic'">--</h4>
+                          <ion-grid>
+                            <ion-row>
+                              <ion-col text-left>
+                                <span class="offer-label">{{"My share" | translate}}: </span>
+                                <span class="offer-meta" *ngIf="offeritem.offer_bonus_type=='static'">{{ (offeritem.offer_bonus/offeritem.offer_price) | percent:'2.1-2':'it-IT'}}</span>
+                                <span
+                                  class="offer-meta" *ngIf="offeritem.offer_bonus_type=='dynamic'">{{ (offeritem.offer_bonus/100) | percent:'2.1-2':'it-IT'}}</span>
+                              </ion-col>
+                              <ion-col>
+                                <span class="offer-label">{{"My earnings" | translate}}: </span>
+                                <span class="offer-meta" *ngIf="offeritem.offer_bonus_type=='static'">{{offeritem.offer_bonus | currency:'EUR':true}}</span>
+                                <span *ngIf="offeritem.offer_bonus_type=='dynamic'"
+                                  class="offer-meta">--</span>
+                              </ion-col>
+                            </ion-row>
+                          </ion-grid>
+                        </ion-card-content>
+                        <ion-grid>
+                          <ion-row>
+                            <ion-col text-center>
+                              <button ion-button round color="offerbtn" (click)="ShareIt(offeritem.offer_bonus,offeritem.offer_bonus/offeritem.offer_price,offeritem.offer_bonus_type,offeritem.id)">{{"Recommend" | translate}}</button>
+                            </ion-col>
+                            <ion-col *ngIf="offeritem.show_buy_button != '0'" text-center>
+                              <button ion-button round color="secondary">{{"Buy" | translate}}</button>
+                            </ion-col>
+                          </ion-row>
+                        </ion-grid>
+                      </ion-card>
+                    </ion-item>
+                   
+                  </ion-list>
+                
+                  <!-- <ion-row *ngFor="let offeritem of item.offers" nowrap>
+                                                          {{offeritem | json}}
+                          <ion-col col-4>{{emp.user.first_name+' ' + emp.user.last_name | uppercase}}</ion-col>
+                            <ion-col col-2>{{emp.user.company_employee.role.name}}</ion-col>
+                            <ion-col col-4>{{emp.user.email}}</ion-col>
+                            <ion-col col-2><button ion-button color="dark"  small (click)="edit(emp.user.id)">Edit</button></ion-col>
+                          </ion-row>  -->
+                </div>
+                
+                <ng-template #elseBlock>
+                  <ion-row>
+                    <ion-col col-12>No record found. </ion-col>
+                  </ion-row>
+                </ng-template>
+              </ion-grid>
+              
+            </div>
+            
+          </ion-scroll>
+          <ion-infinite-scroll *ngIf="showinfioffers" (ionInfinite)="$event.waitFor(doInfinite())">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+          </ion-infinite-scroll>
+        </ion-item>
+        
+      </ion-list>
+      
+    </ion-list-header>
+  </ion-list>
+</ion-content>

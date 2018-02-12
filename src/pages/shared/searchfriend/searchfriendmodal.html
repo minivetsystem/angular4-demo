@@ -1,0 +1,102 @@
+<ion-header>
+  <ion-toolbar color="toolbarclr">
+    <ion-title>
+      {{"Search Friend" | translate}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+      </button>
+    </ion-buttons>
+    
+  </ion-toolbar>
+  <ion-toolbar no-border-top>
+      <ion-searchbar (ionInput)="getItems($event)" debounce="500" (ionClear)="clearclicked()" animated=true placeholder="search for users to send..."></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-card color="primary" *ngIf="!success">
+        <ion-card-content class="cardtext">
+          {{"Please search for users to send friend request" | translate}}
+           </ion-card-content>
+      </ion-card>
+      <ion-card color="danger" *ngIf="failure">
+          <ion-card-content class="cardtext">
+            {{"No record found" | translate}}
+             </ion-card-content>
+        </ion-card>
+  <ion-list>
+    <!-- list -->
+    <ion-card class="friendlist" *ngFor="let friend of friendlist[0]">
+      <ion-item>
+        <ion-avatar>
+          <img src="{{friend.images.medium}}">
+        </ion-avatar>
+        <h2>{{ friend.first_name }} {{ friend.last_name }}</h2>
+      </ion-item>
+      <ion-row>
+        <ion-col text-left>
+            <ion-chip>
+                <ion-badge item-end  color="srchbar">{{ friend.avatar_level }}</ion-badge>
+                <ion-label>Avatar {{"Level" | translate}}</ion-label>
+              </ion-chip>
+        </ion-col>
+        <ion-col text-right>
+            <ion-chip>
+                <ion-label>Account {{"Level" | translate}}</ion-label>
+                <ion-badge item-start  color="srchbar">{{ friend.profile.account_label }}</ion-badge>
+              </ion-chip>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col center text-center>
+          <button ion-button color="loginbtn" round (click)="sendrequest(friend.email,friend.id)">{{"Invite Friends" | translate}}</button>
+        </ion-col>
+      </ion-row>
+    </ion-card>
+    <!-- /list -->
+   
+  </ion-list>
+</ion-content>  
+<!-- 
+
+<ion-card>
+
+  <ion-item>
+    <ion-avatar item-start>
+      <img src="img/marty-avatar.png">
+    </ion-avatar>
+    <h2>Marty McFly</h2>
+    <p>November 5, 1955</p>
+  </ion-item>
+
+  <img src="img/advance-card-bttf.png">
+
+  <ion-card-content>
+    <p>Wait a minute. Wait a minute, Doc. Uhhh... Are you telling me that you built a time machine... out of a DeLorean?! Whoa. This is heavy.</p>
+  </ion-card-content>
+
+  <ion-row>
+    <ion-col>
+      <button ion-button icon-left clear small>
+        <ion-icon name="thumbs-up"></ion-icon>
+        <div>12 Likes</div>
+      </button>
+    </ion-col>
+    <ion-col>
+      <button ion-button icon-left clear small>
+        <ion-icon name="text"></ion-icon>
+        <div>4 Comments</div>
+      </button>
+    </ion-col>
+    <ion-col center text-center>
+      <ion-note>
+        11h ago
+      </ion-note>
+    </ion-col>
+  </ion-row>
+
+</ion-card>
+
+ -->

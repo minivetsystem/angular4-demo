@@ -1,0 +1,159 @@
+<ion-content class="myview">
+    <ion-header>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-4 col-sm-4 col-md-4 col-lg-4 col-xl-4>
+                    <ion-img [src]="logo" width="90" height="36"></ion-img>
+
+                </ion-col>
+                <ion-col col-8 col-sm-8 col-md-8 col-lg-8 col-xl-8 text-right>
+        
+                    <button ion-button color="light" outline (click)="goToSlide()" class="frntbtn"><strong>{{ howitwork | translate }}</strong></button>
+                    <button ion-button color="light" outline (click)="showLoginPage()" class="frntbtn">{{logintext | translate}}</button></ion-col>
+
+            </ion-row>
+        </ion-grid>
+    </ion-header>
+    <ion-scroll  scrollY="true" style="height:650px">
+       
+    <ion-slides pager=false>
+        <ion-slide>
+            <ion-grid>
+                    <ion-row>
+                            <ion-col class="plain-text">
+                               <h4>&nbsp;</h4>
+                            </ion-col>
+                        </ion-row>
+                <ion-row>
+                    <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12>
+                        <ion-img [src]="logo" width="137" height="60"></ion-img>
+                        <h1>PAMETNE PONUDBE</h1>
+                     
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 no-padding>
+                        <!-- <ion-img [src]="logo" width="200" height="73"></ion-img> -->
+                        <h3>samo za člane!</h3>
+                     
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="plain-text">
+                        ZASLUŽI s ponudbami, ki jih imamo na voljo. Lahko jih deliš ali pa jih direktno pošlješ osebi, za katero veš, da potrebuje določen izdelek. Ti dobiš procente od prodaje, iseba na drugi strani pa prihranek.
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="plain-text">
+                        PRIHRANI pred nakupom z največjo izbiro izdelkov, ki jih najdeš znotraj naše platforme. Pomujamo ti enkratne ponudbe z odličnimi prihranki.
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col class="plain-text">
+                       <h4>&nbsp;</h4>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <button ion-button color="danger" round (click)="gotoRegisterOption()">{{ "Registration" | translate}}</button>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col>
+                        <button ion-button color="light" round (click)="changeLanguage('en')" outline>English</button>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button color="light" round (click)="changeLanguage('si')" outline>Slovenščina</button>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-slide>
+
+        <ion-slide>
+                        <ion-grid>
+                                <ion-row>
+                                    <ion-col>
+                                        <h1>KAKO LAHKO IZKORISTIM KONEKT </h1>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col col-5>
+                                        <span class="euro iconformat">
+                                            <ion-icon name="logo-euro"></ion-icon>
+                                        </span>
+                                
+                                    </ion-col>
+                                    <ion-col col-2>
+                                        <span class="ques iconformat">
+                                            <ion-icon name="help"></ion-icon>
+                                        </span>
+                                    </ion-col>
+                                    <ion-col col-5>
+                                        <span class="bulbicon iconformat">
+                                            <ion-icon name="bulb"></ion-icon>
+                                        </span>
+                                
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row>
+                                        <ion-col col-5>
+                                                <h5>ZASLUŽIM S PRIPOROČILI</h5>
+                                                
+                                        </ion-col>
+                                        <ion-col col-2></ion-col>
+                                        <ion-col col-5>
+                                                <h5>PAMETNO NAKUPUJEM</h5>
+                                                
+                                        </ion-col>
+                                    </ion-row>
+                                    
+                                <ion-row>
+                                    <ion-col col-5>
+                                            <h4>Poišči ponudbo</h4>
+                                            <p class="plain-text">Izbiraš lahko glede na popularnost, višino popusta ali po najvišjem zaslužku, ki ga lahko dobiš na določeni ponudbi.</p>
+                                    </ion-col>
+                                    <ion-col col-2></ion-col>
+                                    <ion-col col-5>
+                                            <h4>Poišči izbrano ponudbo</h4>
+                                            <p class="plain-text">Ponujamo široko izbiro produktov, ki jo stalno dopolnjujemo v sodelovanju z velikim številom ponudnikov.</p>
+                                    </ion-col>
+                                </ion-row>
+                       
+                
+                
+                                <ion-row>
+                                    <ion-col col-5>
+                                        <h4>Deli ponudbo</h4>
+                                        <p>Izbrano ponudbo lahko deliš z vsemi, ki bi jih zanimala.</p>
+                                    </ion-col>
+                                    <ion-col col-2></ion-col>
+                                    <ion-col col-5>
+                                        <h4>Pripravljen na nakup</h4>
+                                        <p>Izbrane ponudbe so zagotovljeno najboljše </p>
+                                    </ion-col>
+                                </ion-row>
+                         
+                
+                                <ion-row>
+                                        <ion-col col-5>
+                                            <h4>Prejmi % od prodaje</h4>
+                                            <p>Od vsakega nakupa, ki bo opravljen na podlagi tvojega priporočila, dobiš provizijo na tvoj račun.</p>
+                                        </ion-col>
+                                        <ion-col col-2></ion-col>
+                                        <ion-col col-5>
+                                            <h4></h4>
+                                        </ion-col>
+                                    </ion-row>
+                                    <ion-row>
+                                        <ion-col>
+                                            &nbsp;
+                                        </ion-col>
+                                        </ion-row>
+                            </ion-grid>
+                 
+           
+            
+        </ion-slide>
+    </ion-slides>
+</ion-scroll>
+</ion-content>

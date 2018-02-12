@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar color="toolbarclr">
+    <ion-title>
+        {{"Send Invitation" | translate}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <form [formGroup]="inviteemailfrm" (submit)="invite_emailfrm()">
+    <ion-list>
+  <ion-item>
+    <ion-label color="default" floating>{{"Invite Email" | translate}}</ion-label>
+    <ion-input type="text" formControlName="invite_email"   [(ngModel)]="invite_email" required></ion-input>
+  </ion-item>
+  <div text-center *ngIf="inviteemailfrm.controls.invite_email.errors">
+    <div *ngIf="inviteemailfrm.controls.invite_email.touched">
+      <span *ngIf="inviteemailfrm.controls.invite_email.errors.required && inviteemailfrm.controls.invite_email.errors.email" class="errorblock">{{"The Invite email field is required" | translate}}.</span>
+      <span *ngIf="!inviteemailfrm.controls.invite_email.errors.required && inviteemailfrm.controls.invite_email.errors.email" class="errorblock">{{"Enter valid email" | translate}}</span>
+    </div>
+  </div>
+  </ion-list>
+  <button ion-button full color="loginbtn" [disabled]="!inviteemailfrm.valid">Send</button>
+  
+</form>
+<ion-card class="cardbg" *ngIf="invitesuccess">
+  
+    <ion-card-header class="cardtitle">
+      {{"Success" | translate}} 
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-icon name="checkmark-circle"></ion-icon> {{successmsg}}
+    </ion-card-content>
+  
+  </ion-card>
+</ion-content>  

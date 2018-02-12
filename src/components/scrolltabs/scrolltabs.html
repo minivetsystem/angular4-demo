@@ -1,0 +1,9 @@
+<div class="scroll-tabs">
+  <ion-scroll #scrollTab class="scroll-container" scrollX="true"  zooming="false" >
+    <div class="section" *ngFor="let tab of tabs">
+      <div class="tab9-button" [class.three]="tabs.length<=3" [class.selected]="tab.selected" ion-button small clear (click)="tabChange(tab)">
+        {{tab.name | translate}} 
+      </div>
+    </div>
+  </ion-scroll>
+</div>

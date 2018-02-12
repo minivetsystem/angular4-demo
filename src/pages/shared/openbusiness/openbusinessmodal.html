@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar color="toolbarclr">
+    <ion-title>
+      {{"Open Business" | translate}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <ion-segment [(ngModel)]="componentType">
+    <ion-segment-button value="Priporočila">
+        {{"Recommendations" | translate}}
+    </ion-segment-button>
+    <ion-segment-button value="Poznanstva">
+        {{"Connections" | translate}}
+    </ion-segment-button>
+  </ion-segment>
+  <recommend *ngIf="componentType == 'Priporočila'"></recommend>
+  <openbusiness *ngIf="componentType == 'Poznanstva'"></openbusiness>
+</ion-content>  

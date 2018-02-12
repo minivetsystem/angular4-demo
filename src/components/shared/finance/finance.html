@@ -1,0 +1,86 @@
+<ion-list class="accordion-list">
+  <h5 text-center>Finance</h5>
+  <!-- First Level -->
+  <ion-list-header *ngFor="let item of information; let i = index" no-padding>
+    <!-- Toggle Button -->
+    <button text-uppercase ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
+      <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
+      <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+      {{ item.department_name }}
+    </button>
+    <ion-list *ngIf="item.open" no-lines>
+      <!-- Direct Add Button as Fallback -->
+      <ion-item nowrap>
+        <ion-scroll scrollX="true" scrollY="true" style="width: 100%;height:210px;">
+          <div id="vwrapper" style="width:750px;">
+            <ion-grid>
+              <ion-row nowrap>
+                <ion-col col-2 class="strong"></ion-col>
+                <ion-col col-1 class="strong">{{"OFFER ID" | translate}}</ion-col>
+                <ion-col col-2 class="strong">{{"RECOMMENDATIONS" | translate}}</ion-col>
+                <ion-col col-2 class="strong">{{"SOLD UNITS" | translate}}</ion-col>
+                <ion-col col-2 class="strong">{{"PRICE" | translate}}</ion-col>
+                <ion-col col-2   class="strong">{{"ADVERTISING PART" | translate}}</ion-col>
+                <ion-col col-2 class="strong">{{"ADVERTISING COSTS" | translate}}</ion-col>
+                <ion-col col-2   class="strong">{{"EARNED" | translate}}</ion-col>
+                <ion-col col-2 class="strong">{{"TOTAL ADVERTISING COSTS" | translate}}</ion-col>
+              </ion-row>
+              <div *ngIf="item.cofferlength >0; else elseBlock">
+                <ion-row *ngFor="let offer of item.offers" nowrap>
+                  <ion-col col-2>{{offer.offer_title}}</ion-col>
+                  <ion-col col-1>{{offer.id}}</ion-col>
+                  <ion-col col-2>{{offer.total_recommendations}}</ion-col>
+                  <ion-col col-2>{{offer.total_purchase}}</ion-col>
+                  <ion-col col-2 *ngIf="offer.offer_bonus_type=='dynamic'">--</ion-col>
+                  <ion-col col-2 *ngIf="offer.offer_bonus_type=='static'">{{offer.offer_price|currency:'EUR':true}}</ion-col>
+                  <ion-col col-2 *ngIf="offer.offer_bonus_type=='dynamic'"> {{offer.offer_bonus}}</ion-col>
+                  <ion-col col-2 *ngIf="offer.offer_bonus_type=='static'"> {{offer.offer_bonus/offer.offer_price|percent:'2.2-2'}}</ion-col>
+                  <ion-col col-2 *ngIf="offer.offer_bonus_type=='dynamic'">--</ion-col>
+                  <ion-col col-2 *ngIf="offer.offer_bonus_type=='static'">{{offer.offer_bonus|currency:'EUR':true}}</ion-col>
+                  <ion-col col-2>{{offer.total_earned_amount | currency:'EUR':true}}</ion-col>
+                  <ion-col col-2>{{offer.total_advertising_cost | currency:'EUR':true}}</ion-col>
+                  <ion-col></ion-col>
+                </ion-row>
+                
+              </div>
+              
+              <ng-template #elseBlock>
+                <ion-row>
+                  <ion-col col-12>Currently No offers.</ion-col>
+                </ion-row>
+              </ng-template>
+            </ion-grid>
+            
+          </div>
+          
+        </ion-scroll>
+        
+      </ion-item>
+      
+    </ion-list>
+    
+  </ion-list-header>
+ 
+</ion-list>
+<ion-scroll scrollX="true" scrollY="true" style="width: 100%;height:90px;">
+    <div id="vwrapper" style="width:750px;">
+<ion-grid *ngIf="information">
+    <ion-row class="totalhd">
+        <ion-col col-2>{{"RECOMMENDATIONS" | translate}}</ion-col>
+        <ion-col col-2>{{"SOLD UNITS" | translate}}</ion-col>
+        <ion-col col-2>{{"Offers" | translate}}</ion-col>
+        <ion-col col-2>{{"RECOMMENDATORS" | translate}}</ion-col>
+        <ion-col col-2>{{"EARNED" | translate}}</ion-col>
+        <ion-col col-2>{{"TOTAL ADVERTISING COSTS" | translate}}</ion-col>
+    </ion-row>
+    <ion-row class="totalbg">
+        <ion-col col-2>{{aggrdata.total_recommendations}}</ion-col>
+        <ion-col col-2>{{aggrdata.total_purchase}}</ion-col>
+        <ion-col col-2>{{aggrdata.total_offers}}</ion-col>
+        <ion-col col-2>{{aggrdata.total_recommendators}}</ion-col>
+        <ion-col col-2>{{aggrdata.total_earned_amount | currency:'EUR':true}}</ion-col>
+        <ion-col col-2>{{aggrdata.total_advertising_cost | currency:'EUR':true }}</ion-col>
+    </ion-row>
+</ion-grid>
+</div>
+</ion-scroll>

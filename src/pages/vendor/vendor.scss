@@ -1,0 +1,43 @@
+page-vendor {
+ .scroll-content {
+        padding:5px 0px !important;
+    }   
+    // ion-scroll {
+    //     position: relative;
+    //     display: inline;
+    // }    
+    .fab[mini] {
+        width:30px;
+        height: 30px;
+        margin: 0px;
+    }
+    .fab[mini] .fab-close-icon {
+        line-height: 30px;
+    }
+    ion-fab-list[side=left] {
+        margin: -10px 66px;
+    }
+    .segment-ios .segment-button:first-of-type ,.segment-ios .segment-button:last-of-type{
+        border-radius:0px !important;
+    }
+    .segment-ios .segment-button.segment-activated{
+        background-color:#ef8d1f !important;
+    }   
+    .segment-ios .segment-button{
+        border-color:#ef8d1f;
+        color:#333;
+    }
+    .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated {
+        border-color:#ef8d1f;
+        opacity: 1;
+        color:#fff;
+        background-color:#ef8d1f !important;
+    }
+    .segment-md .segment-button {
+        border-color:#ef8d1f;
+        color:#333;
+    }
+  ion-fab-list[side=left] {
+        margin: -10px 45px;
+    }
+}

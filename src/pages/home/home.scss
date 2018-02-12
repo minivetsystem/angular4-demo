@@ -1,0 +1,77 @@
+page-home {
+    .header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before{
+        background-image: none;
+    }
+    .myview{
+        background: rgba(228,114,32,1);
+        background: -moz-linear-gradient(-45deg, rgba(228,114,32,1) 0%, rgba(122,7,24,1) 100%);
+        background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(228,114,32,1)), color-stop(100%, rgba(122,7,24,1)));
+        background: -webkit-linear-gradient(-45deg, rgba(228,114,32,1) 0%, rgba(122,7,24,1) 100%);
+        background: -o-linear-gradient(-45deg, rgba(228,114,32,1) 0%, rgba(122,7,24,1) 100%);
+        background: -ms-linear-gradient(-45deg, rgba(228,114,32,1) 0%, rgba(122,7,24,1) 100%);
+        background: linear-gradient(135deg, rgba(228,114,32,1) 0%, rgba(122,7,24,1) 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e47220', endColorstr='#7a0718', GradientType=1 );
+        
+    }
+    .frntbtn{
+        padding: 0 0.3em;
+        background-color: rgba(194,139,124,0.6);
+        top: -1.59rem;
+        border-color: rgba(226, 192, 173, 0.64);
+        color: #ffffff;
+        border-bottom-left-radius: 0.925rem;
+        border-bottom-right-radius: 0.925rem;
+        border-width: 2px;
+        font-size: 1.1rem;
+    }
+    .scroll-content {
+        overflow: hidden;
+    }
+    h3{
+        font-size: 1.9rem;
+        font-weight: 500;
+    }
+    h1,h3,h4{
+        margin: 0.1rem 0px;
+        color:#ffffff;
+    }
+    h1{
+        font-size:1.8rem;
+    }
+    h5{
+        font-size:1.5rem;
+        color: #ffffff;
+    }
+    h4{
+        font-size:1.6rem;
+    }
+    .plain-text, p{
+        color: #ffffff;
+        font-weight: 100;
+        font-size: 1.3rem;
+        line-height: 2.2rem;
+       text-align: left;
+        
+    }
+    ion-scroll.scroll-y .scroll-content {
+        overflow-y: auto;
+        top: 70px;
+    }
+    .icon{
+        color:#fff;
+    }
+    .iconformat{
+        // border: 1px solid #fff;
+        border-color:#fff;
+        // padding: 1.5rem;
+        box-sizing: border-box;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        border-style: double;
+        line-height: 4.8rem;
+    }
+    
+}
+

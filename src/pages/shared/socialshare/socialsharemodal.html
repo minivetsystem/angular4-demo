@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar color="toolbarclr">
+    <ion-title>Priporoči</ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+<h4 *ngIf="bonustype == 'dynamic'">Ob nakupu priporočene ponudbe boste zaslužili -- ( 0 % )</h4>
+<h4 *ngIf="bonustype == 'static'">Ob nakupu priporočene ponudbe boste zaslužili {{firstparam | currency:'EUR':true}} ( {{secondparam  | percent:'2.1-2':'it-IT'}} )</h4>
+<button ion-button icon-start block color="fbcolor" (click)="sharewithfb()">
+  <ion-icon name="logo-facebook"></ion-icon>
+  Facebook
+</button>
+<button ion-button icon-start block color="loginbtn" (click)="sharewithmail()">
+  <ion-icon name="mail"></ion-icon>
+  Email
+</button>
+<!-- <button ion-button icon-start block color="secondary" (click)="sharewithwhatsapp()">
+  <ion-icon name="logo-whatsapp"></ion-icon>
+  WhatsApp
+</button> -->
+</ion-content>

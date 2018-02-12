@@ -1,0 +1,53 @@
+<ion-list class="accordion-list">
+  <h5 text-center>Analysis</h5>
+  <!-- First Level -->
+
+  <ion-list-header *ngFor="let item of information; let i = index" no-padding>
+    <!-- Toggle Button -->
+    <button text-uppercase ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
+      <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
+      <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+      {{ item.department_name }}
+    </button>
+    <ion-list *ngIf="item.open" no-lines>
+      <!-- Direct Add Button as Fallback -->
+      <ion-item nowrap>
+        <ion-scroll scrollX="true" scrollY="true" style="width: 100%;height:210px;">
+          <div id="vwrapper" style="width:750px;">
+            <ion-grid>
+              <ion-row nowrap>
+                <ion-col col-2 class="strong"></ion-col>
+                <ion-col col-2 class="strong">OFFER ID</ion-col>
+                <ion-col col-2 class="strong">START DATE</ion-col>
+                <ion-col col-2 class="strong">END DATE</ion-col>
+              </ion-row>
+              <div *ngIf="item.cofferlength >0; else elseBlock">
+                <ion-row *ngFor="let offer of item.offers.offers" nowrap>
+                  <ion-col col-2>{{offer.offer_title}}</ion-col>
+                  <ion-col col-2>{{offer.id}}</ion-col>
+                  <ion-col col-2>{{offer.start_date}}</ion-col>
+                  <ion-col col-2>{{offer.end_date}}</ion-col>
+                </ion-row>
+                <ion-row class="totalhd">
+                  <ion-col col-2></ion-col>
+                  <ion-col col-2>Department</ion-col>
+                  <ion-col col-2>Offers</ion-col>
+                </ion-row>
+                <ion-row class="totalbg">
+                  <ion-col col-2></ion-col>
+                  <ion-col col-2>0</ion-col>
+                  <ion-col col-2>4</ion-col>
+                </ion-row>
+              </div>
+              <ng-template #elseBlock>
+                <ion-row>
+                  <ion-col col-12>Currently No offers.</ion-col>
+                </ion-row>
+              </ng-template>
+            </ion-grid>
+          </div>
+        </ion-scroll>
+      </ion-item>
+    </ion-list>
+  </ion-list-header>
+</ion-list>

@@ -1,0 +1,56 @@
+page-tanstobankmodal {
+   
+        .label,.item-label-floating .label{
+            -webkit-transform: translate3d(0, 0, 0), scale(1) !important; 
+            transform: translate3d(0, 0, 0), scale(1) !important;
+            
+          } 
+          .list-ios > .item-block:first-child {
+            border-top: 0px solid #c8c7cc !important;
+            border-bottom:1px solid #c8c7cc !important;
+        }
+        .item {
+          border-bottom:0.55px solid #c8c7cc !important;
+        }
+          .label-md[floating] {
+            
+            font-size:14px !important; 
+          }
+          .item-input-has-focus .label-md[floating],
+          .input-has-focus .label-md[floating],
+          .item-input-has-value .label-md[floating],
+          .input-has-value .label-md[floating] {
+            color: #FF7F00 !important;
+         
+            -webkit-transform: scale(1) !important; 
+            transform: scale(1) !important;
+        }
+          .list-md .item-input.item-input-has-focus:last-child,
+          .list-md .item-input.input-has-focus:last-child {
+         border-bottom-color: #333;
+         color: rgb(192, 192, 192) !important;
+         box-shadow: none;
+         -webkit-transform: scale(1) !important; 
+         transform:scale(1) !important;
+            }
+            .errorblock {
+              color:#E61616;
+              font-size: 1.2rem;
+              margin-bottom: 0.6rem;
+          }
+         .item-block .item-inner {
+            border-bottom: 0px solid #c8c7cc !important;
+        }
+        .label, page-tanstobankmodal .item-label-floating .label{
+          color:#ddd;
+        }
+        .item-input-has-focus .label-ios[floating], .input-has-focus .lable-ios[floating]{
+          color:#333;
+        }
+        .cardbg {
+          background-color:#32db64;color:#ffffff
+        }
+        .cardtitle {
+          color:#ffffff;
+        }
+}

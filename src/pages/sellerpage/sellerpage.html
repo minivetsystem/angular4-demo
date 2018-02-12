@@ -1,0 +1,160 @@
+<ion-header>
+  <ion-navbar color="toolbarclr">
+    <button ion-button menuToggle menuToggle menu-toggle="left">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <!-- <ion-title>Seller</ion-title> -->
+    <ion-buttons right>
+      <button ion-button icon-only color="royal" (tap)="optionsPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<ion-content padding>
+  <ion-grid>
+    <ion-row class="bdr">
+      <ion-col>
+        <ion-list>
+
+          <ion-item>
+            <ion-label floating>{{"User's Code" | translate}}*</ion-label>
+            <ion-input type="text" [(ngModel)]="usercode"></ion-input>
+          </ion-item>
+          <ion-item>
+
+            <ion-searchbar (ionInput)="getItems($event)" debounce="500" (ionClear)="clearclicked()" animated=true placeholder="{{'Search Offers' | translate}}..."></ion-searchbar>
+          </ion-item>
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid>
+    <ion-row nowrap>
+      <ion-col>
+        <h5>{{"Searched" | translate}} {{"Offers" | translate}}</h5>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item nowrap *ngIf="offerlist.length >0; else elseBlock">
+
+
+    <ion-scroll scrollX="true" scrollY="true" style="width: 100%;height:350px;">
+      <div id="vwrapper" style="width:750px;">
+        <ion-grid>
+          <ion-row nowrap>
+            <ion-col col-2 class="strong">{{"Code" | translate}}</ion-col>
+            <ion-col col-2 class="strong">{{"Offers" | translate}}</ion-col>
+            <ion-col col-2 class="strong">{{"Quantity" | translate}}</ion-col>
+            <ion-col col-2 class="strong">{{"Price" | translate}}</ion-col>
+            <ion-col col-2 class="strong"></ion-col>
+          </ion-row>
+          <!-- <div *ngIf="offerlist.length >0; else elseBlock">                      -->
+          <ion-row *ngFor="let offer of offerlist[0];let i = index" nowrap>
+            <ion-col col-2>{{offer.internal_code}}</ion-col>
+            <ion-col col-2>{{offer.offer_title}}</ion-col>
+            <ion-col col-2 class="cpadcol" *ngIf="offer.offer_bonus_type=='static'">
+              <ion-item>
+                <ion-multi-picker [(ngModel)]="default[i]" item-content [multiPickerColumns]="quantity" (ionChange)="onChange(offer.id)"
+                  [separator]="''"></ion-multi-picker>
+              </ion-item>
+            </ion-col>
+            <ion-col col-2 class="cpadcol dbl" *ngIf="offer.offer_bonus_type=='static'">
+              <ion-item>
+                <ion-input readonly text-center type="text" value="{{offer.offer_price * default[i] | currency:'EUR':true}}"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-2 class="cpadcol dbl" *ngIf="offer.offer_bonus_type=='dynamic'">
+              <ion-item text-center>
+                <label>1</label>
+              </ion-item>
+            </ion-col>
+            <ion-col col-2 class="cpadcol" *ngIf="offer.offer_bonus_type=='dynamic'">
+              <ion-item>
+                <ion-input text-right type="text" [(ngModel)]="dynmcurr[i]" (ionBlur)="onChangeCurr(i,offer.id)"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col col-2>
+              <button ion-button color="loginbtn" icon-right small (click)="selectedoffer(i,offer.id)">Confirm
+                <ion-icon name="checkmark"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+
+          <!-- </div>    -->
+
+        </ion-grid>
+      </div>
+    </ion-scroll>
+
+  </ion-item>
+  <ng-template #elseBlock>
+    <ion-row>
+      <ion-col col-12>{{"Searched offers" | translate}} 0.</ion-col>
+    </ion-row>
+  </ng-template>
+  <ion-grid>
+    <ion-row nowrap>
+      <ion-col>
+        <h5>{{"Selected offers" | translate}}</h5>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-scroll scrollX="true" scrollY="true" style="width: 100%;height:350px;">
+    <div id="vwrapper" style="width:650px;">
+      <ion-grid *ngIf="selectedofferlist.length">
+        <ion-row nowrap>
+
+          <ion-col col-2 class="strong">{{"Offers" | translate}}</ion-col>
+          <ion-col col-2 class="strong">{{"Quantity" | translate}}</ion-col>
+          <ion-col col-2 class="strong">{{"Price" | translate}}</ion-col>
+          <ion-col col-2 class="strong"></ion-col>
+        </ion-row>
+        <ion-row *ngFor="let offer of selectedofferlist;let i = index" nowrap>
+          <ion-col col-2>{{offer.offer_title}}</ion-col>
+          <ion-col col-2 class="cpadcol default{{i}} " *ngIf="offer.offer_bonus_type=='static'">
+            <ion-item>
+              <ion-multi-picker [(ngModel)]="default2[i]" item-content [multiPickerColumns]="quantity" (ionChange)="onSelectedOfferChange(offer.id)"
+                [separator]="''"></ion-multi-picker>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2 class="cpadcol dbl" *ngIf="offer.offer_bonus_type=='static'">
+            <ion-item>
+              <ion-input readonly text-center type="text" value="{{offer.offer_price * default2[i] | currency:'EUR':true}}"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2 class="cpadcol dbl" *ngIf="offer.offer_bonus_type=='dynamic'">
+            <ion-item text-center>
+              <label>1</label>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2 class="cpadcol" *ngIf="offer.offer_bonus_type=='dynamic'">
+            <ion-item>
+              <ion-input text-right type="text" [(ngModel)]="selecteddynmcurr[i]" (ionBlur)="selectofferonChangeCurr(i,offer.id)"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button color="dark" icon-right small (click)="removeselectedoffer(i,offer.id)"> Remove it
+              <ion-icon name="trash"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+        <ion-row nowrap>
+
+          <ion-col col-2 class="strong">Total Price</ion-col>
+          <ion-col col-2 class="strong">{{ total | currency:'EUR':true }}</ion-col>
+
+        </ion-row>
+        <ion-row nowrap>
+          <ion-col>
+            <button ion-button color="loginbtn" *ngIf="selectedofferlist.length" (click)="offerclose()"> Close </button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+  </ion-scroll>
+
+</ion-content>

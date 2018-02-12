@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="toolbarclr">
+    <ion-title>
+        {{"Send Withdrawal Request" | translate}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text showWhen="ios">Cancel</span>
+        <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+    <form [formGroup]="withdrawamountfrm" (submit)="withdraw_amountfrm()">
+    <ion-list>
+  <ion-item>
+    <ion-label color="default" floating>{{"Request a withdrawal amount" | translate}}*</ion-label>
+    <ion-input type="text" formControlName="request_amount"   [(ngModel)]="request_amount" required></ion-input>
+  </ion-item>
+<div text-center *ngIf="withdrawamountfrm.controls.request_amount.errors">
+      <div *ngIf="withdrawamountfrm.controls.request_amount.touched">
+          <span *ngIf="!withdrawamountfrm.controls.request_amount.required && !withdrawamountfrm.controls.request_amount.errors.pattern" class="errorblock"> {{"Amount is required" | translate}}</span>
+          <span *ngIf="withdrawamountfrm.controls.request_amount.errors.pattern" class="errorblock">{{"Enter valid numeric value only" | translate}}</span>
+      </div>
+      </div>
+  </ion-list>
+  <button ion-button full color="loginbtn" [disabled]="!withdrawamountfrm.valid">Send</button>
+  
+</form>
+
+<ion-card class="cardbg" *ngIf="withdrawsuccess">
+  
+    <ion-card-header class="cardtitle">
+      Success
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-icon name="checkmark-circle"></ion-icon> {{successmsg}}
+    </ion-card-content>
+  
+  </ion-card>
+</ion-content>  

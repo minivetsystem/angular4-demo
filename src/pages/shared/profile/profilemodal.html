@@ -1,0 +1,246 @@
+<ion-header>
+    <ion-toolbar color="toolbarclr">
+      <ion-title>
+       My Profile
+        </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text  showWhen="ios">Cancel</span>
+          <ion-icon name="md-close" showWhen="android,windows" color="default"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+    <ion-content padding>
+            <ion-card class="friendlist" >
+                <ion-item>
+                    <ion-avatar *ngIf="!newupload">
+                        <img src="{{previousprofileimg}}">
+                    </ion-avatar>
+                    <ion-avatar *ngIf="newupload">
+                            <img src="{{pathForImage(first_Image)}}">
+                    </ion-avatar>
+                    <h2> Hello , {{userRegData.first_name}}</h2>
+                </ion-item>
+              
+                <ion-row>
+                    <ion-col center text-center>
+                        <!-- <button ion-button color="loginbtn" round (click)="sendrequest(friend.email,friend.id)">Change profile picture.</button> -->
+                        <button color="loginbtn" round [hidden]="first_Image !== null" ion-button icon-left item-end (click)="presentActionSheet(1)">
+                                <ion-icon name="camera"></ion-icon>Select Profile Image.
+                              </button>
+                              <button  color="dark" ion-button icon-left item-end (click)="uploadImage(1)" [disabled]="first_Image === null" *ngIf="!is_uploaded_first_Image">
+                                    <ion-icon name="cloud-upload"></ion-icon>Upload
+                                  </button>
+                                  <button  color="loginbtn" ion-button icon-left item-end (click)="delete()" [hidden]="first_Image === null">
+                                        <ion-icon name="camera"></ion-icon> Change profile picture
+                                  </button>
+                    </ion-col>
+                </ion-row>
+            </ion-card>
+            <!-- <ion-list>
+                    <ion-item>
+                            <ion-thumbnail item-start [hidden]="first_Image === null">
+                               <img src="{{pathForImage(first_Image)}}">
+                            </ion-thumbnail> 
+                             <p [hidden]="first_Image !== null">Add Photograph</p>
+                            <p [hidden]="first_Image === null">{{cur_first_name}}</p>
+                             <button [hidden]="first_Image !== null" ion-button icon-left item-end (click)="presentActionSheet(1)">
+                              <ion-icon name="camera"></ion-icon>Select Image
+                            </button>
+                            <button ion-button icon-left item-end (click)="uploadImage(1)" [disabled]="first_Image === null" *ngIf="!is_uploaded_first_Image">
+                              <ion-icon name="cloud-upload"></ion-icon>Upload
+                            </button>
+                            <button ion-button icon-left item-end (click)="delete()" [hidden]="first_Image === null">
+                              <ion-icon name="trash"></ion-icon>
+                            </button>
+                          </ion-item>
+            </ion-list> -->
+      <ion-grid class="grid-bg regfrm">
+          <p>Fields marked with * are mandatory</p>
+          <form [formGroup]="addpeopleform" (ngSubmit)="onSubmit(addpeopleform.value)">
+        
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-input type="text" placeholder="* First Name" [(ngModel)]="userRegData.first_name" formControlName="first_name" name="first_name"
+                          required></ion-input>
+                  </ion-col>
+                  <span *ngIf="first_name.errors && first_name.touched" class="errorblock">
+                              First Name field is required
+                      </span>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-input type="text" placeholder="* Last Name" [(ngModel)]="userRegData.last_name" formControlName="last_name" name="last_name"
+                          required></ion-input>
+                  </ion-col>
+                  <span *ngIf="last_name.errors && last_name.touched" class="errorblock">
+                                   Last Name field is required
+                           </span>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-input type="email" placeholder="* Email" [(ngModel)]="userRegData.email" formControlName="email" name="email" required></ion-input>
+                  </ion-col>
+                  <div class="errorblock" *ngIf="email.errors && email.touched">
+                      <span *ngIf="addpeopleform.get('email').hasError('email') && !email.errors.required">Please enter the correct email.</span>
+                      <span *ngIf="email.errors.required">Email is required</span>
+                  </div>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-input type="text" placeholder="* Phone" [(ngModel)]="userRegData.phone" formControlName="phone" name="phone" required></ion-input>
+                  </ion-col>
+                  <span *ngIf="phone.errors && phone.touched" class="errorblock">
+                          Phone field is required
+                       </span>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-datetime displayFormat="MM/DD/YYYY" (ionChange)="onKeyUp()" placeholder="* Date of birth" [(ngModel)]="userRegData.date_of_birth"
+                          formControlName="date_of_birth" name="date_of_birth" required> </ion-datetime>
+                  </ion-col>
+                  <div class="errorblock" *ngIf="date_of_birth.errors && date_of_birth.touched">
+                      <span *ngIf="date_of_birth.errors.required">Date of birth is required</span>
+                  </div>
+              </ion-row>
+              <ion-row radio-group [(ngModel)]="userRegData.gender" formControlName="gender">
+    
+                  <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center no-padding>
+                      <ion-item no-lines>
+                          <ion-label>Male</ion-label>
+                          <ion-radio value="m" name="gender" checked="true"></ion-radio>
+                      </ion-item>
+                  </ion-col>
+    
+                  <ion-col col-6 col-sm-6 col-md-6 col-lg-6 col-xl-6 text-center no-padding>
+                      <ion-item no-lines>
+                          <ion-label>Female</ion-label>
+                          <ion-radio value="f" name="gender"></ion-radio>
+                      </ion-item>
+                  </ion-col>
+    
+              </ion-row>
+            
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-input type="text" placeholder="House Number" [(ngModel)]="userRegData.user_house_nubmer" formControlName="user_house_nubmer"
+                          name="user_house_nubmer"></ion-input>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-input type="text" placeholder="* Street" [(ngModel)]="userRegData.user_street" formControlName="user_street" name="user_street"
+                          required></ion-input>
+                  </ion-col>
+                  <span *ngIf="user_street.errors && user_street.touched" class="errorblock">Street field is required</span>
+              </ion-row>
+         <!--   <ion-list>
+    
+                  <ion-item>
+                      <select-searchable [(ngModel)]="countryname1" title="* Country" itemValueField="id" itemTextField="name" [items]="countryNames"
+                          [canSearch]="true" searchPlaceholder="Enter 3 or more characters, e.g. &quot;san&quot;" (onSearch)="searchCountry($event)"
+                          (onChange)="countryChange($event)" formControlName="user_country">
+                      </select-searchable>
+                  </ion-item>
+                  <span *ngIf="user_country.errors && user_country.touched" class="errorblock">Please select country</span>
+              </ion-list> -->
+              <ion-list>
+              <ion-item>
+                    <select-searchable [(ngModel)]="dummycountryngmodal" title="* Country" itemValueField="id" itemTextField="name" [items]="dummycountry"
+                        [canSearch]="false" (onChange)="countryChange($event)" formControlName="user_country">
+                    </select-searchable>
+                </ion-item>
+                <span *ngIf="user_country.errors && user_country.touched" class="errorblock">Please select country</span>
+            </ion-list>
+                
+                  <ion-list>
+    
+                  <ion-item>
+                      <select-searchable [(ngModel)]="statename1" title="* State" itemValueField="id" itemTextField="state_name" [items]="stateName"
+                          searchPlaceholder="Enter 3 or more characters, e.g. &quot;san&quot;" (onChange)="stateChange($event)"
+                          formControlName="user_state">
+                      </select-searchable>
+                  </ion-item>
+                  <span *ngIf="user_state.errors && user_state.touched" class="errorblock">Please select state</span>
+              </ion-list>
+              <ion-list>
+    
+                  <ion-item>
+                      <select-searchable [(ngModel)]="cityname1" title="* Cities" itemValueField="id" itemTextField="city" [items]="cityName"
+                          searchPlaceholder="Enter 3 or more characters, e.g. &quot;san&quot;" (onChange)="cityChange($event)"
+                          formControlName="user_city">
+                      </select-searchable>
+                  </ion-item>
+                  <span *ngIf="user_city.errors && user_city.touched" class="errorblock">Please select city</span>
+              </ion-list>
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-input type="text" placeholder="* Zip" [(ngModel)]="userRegData.user_zip" formControlName="user_zip" name="user_zip"
+                          required> </ion-input>
+                  </ion-col>
+                  <span *ngIf="user_zip.errors && user_zip.touched" class="errorblock">Zip field is required</span>
+              </ion-row>
+              <!-- <ion-list>
+                  <ion-item>
+                      <ion-label>Bank</ion-label>
+                      <ion-select [(ngModel)]="userRegData.user_bank" formControlName="user_bank" name="user_bank" interface="popover">
+                          <ion-option *ngFor="let item of banks; let i = index" value="{{item.id}}">{{item.name}}</ion-option>                          
+                      </ion-select>
+                  </ion-item>
+              </ion-list> -->
+              <ion-row style="border:0.55px solid #ddd">
+                    <ion-col col-3>
+                        <span class="autocompbank">Bank</span>
+                        </ion-col>
+                    <ion-col col-9><ion-searchbar [(ngModel)]="searchedtext"  [ngModelOptions]="{standalone: true}"
+                      placeholder="Filter Items with Cancel"
+                      [showCancelButton]="shouldShowCancel"
+                      (ionInput)="getItems($event)"
+                      (ionCancel)="onCancel($event)">
+                    </ion-searchbar></ion-col>
+                </ion-row>
+     
+         <!-- <ion-list>
+             <ion-item>
+                    <ion-searchbar [(ngModel)]="searchedtext"  [ngModelOptions]="{standalone: true}"
+                    placeholder="Filter Items with Cancel"
+                    [showCancelButton]="shouldShowCancel"
+                    (ionInput)="getItems($event)"
+                    (ionCancel)="onCancel($event)">
+                  </ion-searchbar>
+             </ion-item>
+         </ion-list> -->
+        <ion-list *ngIf="showbanklistif">
+            <!-- <ion-item *ngFor="let item of filteredbanklist">
+                              {{ item }}
+                            </ion-item> -->
+            <button no-padding class="banknamebtn" ion-item *ngFor="let item of filteredbanklist" (click)="bankSelected(item,$event)">
+                {{ item }}
+            </button>
+        </ion-list>
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-input type="text" placeholder="TRR (bank accout)" [(ngModel)]="userRegData.user_bank_accout" formControlName="user_bank_accout"
+                          name="user_bank_accout"> </ion-input>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                  <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                      <ion-input type="text" placeholder="Tax number (optional paypal)" [(ngModel)]="userRegData.user_tax_number" formControlName="user_tax_number"
+                          name="user_tax_number"></ion-input>
+                  </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 text-center no-padding>
+                    <ion-input type="text" placeholder=" paypal details ( optional ) " [(ngModel)]="userRegData.paypal_details" formControlName="paypal_details"
+                        name="paypal_details"></ion-input>
+                </ion-col>
+            </ion-row>
+    
+                    
+              <button ion-button full color="loginbtn" [disabled]="!addpeopleform.valid">Confirm</button>
+          </form>
+      </ion-grid>
+    </ion-content>

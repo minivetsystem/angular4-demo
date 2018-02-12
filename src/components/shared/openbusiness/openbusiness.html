@@ -1,0 +1,115 @@
+<ion-list class="accordion-list" *ngIf="information">
+  <h5 text-center>{{"Connections" | translate}}</h5>
+
+  <!-- connections -->
+  <ion-list>
+    <ion-item>
+      <ion-label>Filter Result</ion-label>
+      <ion-select interface="popover" (ionChange)="mainfilterby($event)">
+        <ion-option value="1">Month</ion-option>
+        <ion-option value="2">Year</ion-option>
+        <ion-option value="3">Year- Current Date</ion-option>
+        <ion-option value="4" selected>All Current Date</ion-option>
+      </ion-select>
+    </ion-item>
+
+  </ion-list>
+  <ion-list>
+    <ion-item>
+      <ion-label>Modifier</ion-label>
+
+      <ion-select [(ngModel)]="modif" interface="popover" placeholder="Select..." (ionChange)="modifier($event)">
+        <ion-option *ngFor="let item of dependentfilter; let i = index" [value]="i+1">{{item | translate}}</ion-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+  <!-- First Level -->
+
+  <ion-list-header *ngFor="let item of information; let i = index" no-padding>
+    <!-- Toggle Button -->
+    <ion-grid>
+      <ion-row nowrap>
+        <ion-col col-9>
+          <button text-uppercase ion-item (click)="toggleSection(i)" detail-none [ngClass]="{'section-active': item.open, 'section': !item.open}">
+            <ion-icon item-left name="arrow-forward" *ngIf="!item.open"></ion-icon>
+            <ion-icon item-left name="arrow-down" *ngIf="item.open"></ion-icon>
+            {{ item.tabname | translate}}
+          </button>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-list *ngIf="item.open" no-lines>
+      <ion-item nowrap>
+        <ion-scroll scrollX="true" scrollY="true" style="width: 100%;height:210px;">
+          <div id="vwrapper" style="width:750px;">
+            <!-- tab companies -->
+            <ion-grid *ngIf="companytab">
+              <ion-row nowrap class="aa">
+                <ion-col class="strong"></ion-col>
+                <ion-col col-2 class="strong">MONTH</ion-col>
+                <ion-col col-4 class="strong">ADVERTISED OFFERS</ion-col>
+                <ion-col col-2 class="strong">ACTIVE OFFERS</ion-col>
+                <ion-col col-2 class="strong">PURCHASES</ion-col>
+                <ion-col col-2 class="strong">EARNED</ion-col>
+              </ion-row>
+              <div *ngFor="let con of item.company">
+                <ion-row>
+                  <ion-col class="strong"></ion-col>
+                  <ion-col col-2>{{con.month}}</ion-col>
+                  <ion-col col-4>{{con.total_recommendations}}</ion-col>
+                  <ion-col col-2>{{con.total_active_offers}}</ion-col>
+                  <ion-col col-2>{{con.total_purchase}}</ion-col>
+                  <ion-col col-2>{{con.total_earned_amount}}</ion-col>
+                </ion-row>
+              </div>
+              <ion-row nowrap class="aa">
+                <ion-col col-2 class="strong">All together</ion-col>
+                <ion-col col-2 class="strong">Providers</ion-col>
+                <ion-col col-2 class="strong">Offers</ion-col>
+                <ion-col col-2 class="strong">Recievers</ion-col>
+                <ion-col col-2 class="strong">Purchases</ion-col>
+                <ion-col col-2 class="strong">Earned</ion-col>
+              </ion-row>
+              <div *ngFor="let con of item.companydetails">
+                <ion-row>
+                  <ion-col col-2></ion-col>
+                  <ion-col col-2>{{con.total_companies}}</ion-col>
+                  <ion-col col-2>{{con.total_recommendations}}</ion-col>
+                  <ion-col col-2>{{con.total_receivers}}</ion-col>
+                  <ion-col col-2>{{con.total_purchases}}</ion-col>
+                  <ion-col col-2>{{con.total_earned_amount}}</ion-col>
+                </ion-row>
+              </div>
+            </ion-grid>
+            <!-- /tab companies -->
+            <!-- tab friends -->
+            <ion-grid *ngIf="friendtab">
+              <ion-row nowrap class="aa">
+                <ion-col col-4 class="strong">FRIENDS</ion-col>
+                <ion-col col-2 class="strong">LEVEL </ion-col>
+                <ion-col col-4 class="strong">ACTIVE OFFERS</ion-col>
+                <ion-col col-2 class="strong">EARNED</ion-col>
+              </ion-row>
+
+              <div *ngFor="let con of item.friends">
+                <ion-row nowrap class="aa">
+                  <ion-col col-4 class="strong">{{con.total_friends}}</ion-col>
+                  <ion-col col-2 class="strong">{{con.total_recommends}} </ion-col>
+                  <ion-col col-4 class="strong">{{con.total_level}}</ion-col>
+                  <ion-col col-2 class="strong">{{con.total_reward_amount}}</ion-col>
+                </ion-row>
+              </div>
+
+            </ion-grid>
+            <!-- /tab friends -->
+          </div>
+        </ion-scroll>
+      </ion-item>
+    </ion-list>
+
+
+  </ion-list-header>
+
+</ion-list>

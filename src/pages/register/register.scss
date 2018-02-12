@@ -1,0 +1,49 @@
+page-register {
+    .errorblock {
+        color:#E61616;
+        font-size: 1.2rem;
+        margin-bottom: 0.6rem;
+    }
+    .list {
+        margin:2px 0;  
+        border: 1px solid #dddddd;
+    }
+    .mclass {
+        border: 1px solid #dddddd;
+        margin:1px  0 2px 0;  
+   
+    }
+    .femclass {
+        border-top: 1px solid #dddddd;
+        border-bottom:1px solid #dddddd;
+        border-right:1px solid #dddddd;
+        margin:1px  0 2px 0;
+    }
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block {
+        border: 0.55px solid #c8c7cc;
+    }
+    .item-md, .item-ios {
+        border: 1px solid #ddd !important;
+        margin-bottom: 3px;
+    }
+    .searchbar-ios,.searchbar-md {
+        padding: 0 8px;
+        min-height: 34px;
+        border-top: 0;
+        border-bottom: 0;
+        background: none;
+    }
+    .autocompbank{
+        line-height: 2.5em;
+        display: inline-block;
+        margin-left: 0.9rem;
+    }
+    .banknamebtn{
+        background-color:#c8c7cc;
+    }
+    .banknamebtn .label-ios,.banknamebtn .label.md{
+        font-size: 1.5rem;
+        padding-left: 16px;
+    }
+}
+

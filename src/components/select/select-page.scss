@@ -1,0 +1,23 @@
+.select-searchable-page {
+    &.select-searchable-page-can-reset.select-searchable-page-multiple {
+        .footer .col:first-child {
+             padding-right: $content-margin / 2;
+        }
+
+        .footer .col:last-child {
+             padding-left: $content-margin / 2;
+        }
+    }
+    .searchbar-ios .searchbar-input, .searchbar-md .searchbar-input {
+        box-shadow: none;
+        -webkit-box-shadow:none;
+        font-size:1.3rem;
+    }
+    .item-md,.item-ios{
+        color:#333;
+        font-size:1.4rem;
+    }
+    .item-ios h2,.item-md h2{
+        font-size:1.4rem;
+    }
+}

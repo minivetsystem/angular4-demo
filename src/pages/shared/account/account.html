@@ -1,0 +1,146 @@
+<ion-header>
+   <ion-navbar color="toolbarclr">
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+          </button>
+      <ion-title>Account</ion-title>
+    </ion-navbar>
+  </ion-header>
+
+
+<ion-content no-padding>
+    <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+<div class="bg">
+    <ion-grid>
+        <ion-row>
+          <ion-col class="imgwrapper">
+            <div class="imgbg">
+            <img src="{{viewdata.profileimg}}" alt="">
+          </div>
+            <div class="img-title">Hello, {{viewdata.fname}} {{viewdata.lname}}</div>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+           <h4>Referral Code :</h4>{{viewdata.referralCode}}
+          </ion-col>
+        </ion-row>
+        </ion-grid>
+</div>
+<ion-card>
+<progress-bar [progress]="loadProgress"  *ngIf="level > 0"></progress-bar>
+<div class="progress-outer" *ngIf="level == 0">
+  Level 0/10
+</div>
+</ion-card>
+<div  *ngIf="chartcontainer['first']" >
+  <ion-scroll scrollX="true" scrollY="true" style="min-width: 100%;height:330px;">
+    <div id="vwrapper" style="width:630px;overflow:scroll;margin:0 auto;">
+      <ion-card>
+        <div id="container1" style="display: block;"></div>
+      </ion-card>
+    </div>
+  </ion-scroll>
+</div>
+<div  *ngIf="chartcontainer['second']" >
+  <ion-scroll scrollX="true" scrollY="true" style="min-width: 100%;height:150px;">
+    <div id="vwrapper" style="width:630px;overflow:scroll;margin:0 auto;">
+      <ion-card>
+        <div id="container2" style="display: block;"></div>
+      </ion-card>
+    </div>
+  </ion-scroll>
+</div>
+<div  *ngIf="chartcontainer['third']" >
+  <ion-scroll scrollX="true" scrollY="true" style="min-width: 100%;height:150px;"  *ngIf="chartcontainer['third']">
+    <div id="vwrapper" style="width:630px;overflow:scroll;margin:0 auto;">
+      <ion-card>
+        <div id="container3" style="display: block;"></div>
+      </ion-card>
+    </div>
+  </ion-scroll>
+  </div>
+  <div  *ngIf="chartcontainer['fourth']" >
+  <ion-scroll scrollX="true" scrollY="true" style="min-width: 100%;height:150px;"  *ngIf="chartcontainer['fourth']">
+    <div id="vwrapper" style="width:630px;overflow:scroll;margin:0 auto;">
+      <ion-card>
+        <div id="container4" style="display: block;"></div>
+      </ion-card>
+    </div>
+  </ion-scroll>
+  </div>
+
+<div class="bg">
+    <ion-card>
+        <ion-card-header>
+          <ion-row>
+            <ion-col>Account Balance
+              <p>{{ currentdate | date:"d. MMMM yyyy" }}</p>
+            </ion-col>
+            <ion-col text-right>
+              <button ion-button outline small (click)="openbusiness()">Open Business</button>
+            </ion-col>
+          </ion-row>
+        </ion-card-header>
+        <ion-card-content>
+          <h1>{{viewdata.acct_bal}}</h1>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-header>
+          Earnings
+          <p>{{ currentdate | date:"MMMM yyyy" }}</p>
+        </ion-card-header>
+        <ion-card-content>
+          <h1>{{viewdata.earning}} </h1>
+        </ion-card-content>
+      </ion-card>
+</div>
+<ion-row>
+  <ion-col>
+    
+      <button ion-button block color="loginbtn" (click)="transtobankModal()">Transition to bank </button>
+  </ion-col>
+</ion-row>
+
+<ion-card>
+    
+      <ion-card-header>
+      <h2>COMMUNITY</h2>
+      </ion-card-header>
+      <ion-card-content style="height:280px;">
+          <ion-content>
+          <ion-list>
+            <span *ngFor="let notifarr of notification">
+              <ion-item *ngFor="let item of notifarr" >
+                
+                <ion-avatar item-start *ngIf="item.avatarsrc != '' ">
+                  <img src="{{item.avatarsrc}}">
+                </ion-avatar>
+                 <span *ngIf="item.modif == '1'">Hi <strong class="modifier" >{{item.notify}}</strong>, Welcome to <strong>KONEKT</strong></span>
+                 <span *ngIf="item.modif != '1'"><strong class="modifier" *ngIf="item.modif != '' ">{{item.modif}} </strong>{{item.notify}}</span>
+              </ion-item>
+            </span>
+            <ion-infinite-scroll *ngIf="showinfi" (ionInfinite)="$event.waitFor(doInfinite())" threshold="1%">
+                <ion-infinite-scroll-content
+                  loadingSpinner="bubbles"
+                  loadingText="Loading more data...">
+                </ion-infinite-scroll-content>
+              </ion-infinite-scroll> 
+            </ion-list> 
+          </ion-content>
+          </ion-card-content>
+       
+    </ion-card>
+ 
+ 
+<ion-row>
+    <ion-col>
+         <button ion-button block color="loginbtn" (click)="invitefriendmodal()">Invite Friend</button>
+        <button ion-button  block color="loginbtn" (click)="searchfriendmodal()">Search Friends </button>
+    </ion-col>
+  </ion-row>
+  
+</ion-content>

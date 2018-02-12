@@ -1,0 +1,91 @@
+<ion-header>
+  <ion-navbar color="toolbarclr">
+    <button ion-button menuToggle menuToggle menu-toggle="left">
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Vendor</ion-title>
+    <ion-buttons right>
+      <button ion-button icon-only color="royal" (tap)="optionsPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-toolbar>
+    <scroll-tabs #scrollTab [tabs]="tabs" (onSelectedTab)="tabChange($event)"></scroll-tabs>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+  <div [ngSwitch]="selectedTab">
+    <div class="selectedTab.name" *ngFor="let tab of tabs; let i = index">
+      <div class="content-wrapper" *ngSwitchCase="tabs[i]">
+
+        <offers *ngIf="i==0"></offers>
+        <persons *ngIf="i==1"></persons>
+        <departments *ngIf="i==2"></departments>
+        <ion-segment [(ngModel)]="componentType" *ngIf="i==3">
+          <ion-segment-button value="Finance">
+            {{"View by Offer" | translate}}
+          </ion-segment-button>
+          <ion-segment-button value="Analysis">
+            {{"View by Month" | translate}}
+          </ion-segment-button>
+        </ion-segment>
+        <finance *ngIf="i==3 && componentType == 'Finance'"></finance>
+        <financebymonth *ngIf="i==3 && componentType == 'Analysis'"></financebymonth>
+        <analysis *ngIf="i==4"></analysis>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ion-footer>
+  <ion-toolbar color="toolbarclr">
+    <!-- offers -->
+    <ion-fab right bottom *ngIf="footertoggle == 'Offers'">
+      <button ion-fab color="light" mini>
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <ion-fab-list side="left">
+        <button ion-button icon-start color="light" small (click)="download_cats()">
+          <ion-icon name="download"></ion-icon>
+          {{"Download Categories" | translate}}
+        </button>
+        <button ion-button icon-start color="light" small (click)="add_offer()">
+          <ion-icon name='add'></ion-icon>
+          {{"Add Offer" | translate}}
+        </button>
+      </ion-fab-list>
+    </ion-fab>
+    <!-- /offers -->
+    <!-- persons -->
+    <ion-fab right bottom *ngIf="footertoggle == 'Persons'">
+      <button ion-fab color="light" mini>
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <ion-fab-list side="left">
+
+        <button ion-button icon-start color="light" small (click)="add_people()">
+          <ion-icon name='add'></ion-icon>
+          {{"Add People" | translate}}
+        </button>
+
+      </ion-fab-list>
+    </ion-fab>
+    <!-- /persons -->
+    <!-- departments -->
+    <ion-fab right bottom *ngIf="footertoggle == 'Department'">
+      <button ion-fab color="light" mini>
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <ion-fab-list side="left">
+
+
+        <button ion-button icon-start color="light" small (click)="departmentModal()">
+          <ion-icon name='add'></ion-icon>
+          {{"Add" | translate}} {{"Department" | translate}}
+        </button>
+      </ion-fab-list>
+    </ion-fab>
+  </ion-toolbar>
+</ion-footer>

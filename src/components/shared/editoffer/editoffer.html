@@ -1,0 +1,261 @@
+<ion-content padding>
+  <form [formGroup]="addofferForm" (submit)="saveOfferDetails()">
+    <ion-list>
+      <ion-item>
+        <ion-label stacked>{{"Title" | translate}} *</ion-label>
+        <ion-input type="text" formControlName="offertitle" [(ngModel)]="offertitle" required></ion-input>
+      </ion-item>
+      <div *ngIf="addofferForm.controls.offertitle.errors">
+        <span *ngIf="addofferForm.controls.offertitle.touched && !addofferForm.controls.offertitle.required" class="errorblock">
+          {{"Title" | translate}} {{ "field is required" | translate }}</span>
+      </div>
+      <ion-item>
+        <ion-label stacked>{{"Product Name" | translate}} *</ion-label>
+        <ion-input type="text" formControlName="productname" [(ngModel)]="productname"></ion-input>
+      </ion-item>
+      <div *ngIf="addofferForm.controls.productname.errors">
+        <span *ngIf="addofferForm.controls.productname.touched && !addofferForm.controls.productname.required" class="errorblock">
+          {{"Product Name" | translate}} {{ "field is required" | translate }}</span>
+      </div>
+      <ion-item>
+        <ion-label stacked>{{"Internal Code" | translate}} *</ion-label>
+        <ion-input type="text" formControlName="internalcode" [(ngModel)]="internalcode"></ion-input>
+      </ion-item>
+      <div *ngIf="addofferForm.controls.internalcode.errors">
+        <span *ngIf="addofferForm.controls.internalcode.touched && !addofferForm.controls.internalcode.required" class="errorblock">
+          {{"Internal Code" | translate}} {{ "field is required" | translate }}</span>
+      </div>
+      <ion-item>
+        <ion-label stacked>{{"Price" | translate}} *</ion-label>
+        <ion-input type="text" formControlName="price" [(ngModel)]="price"></ion-input>
+      </ion-item>
+      <div *ngIf="addofferForm.controls.price.errors">
+        <span *ngIf="addofferForm.controls.price.touched && !addofferForm.controls.price.required" class="errorblock">
+          {{"Price" | translate}} {{ "field is required" | translate }}</span>
+      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-10>
+            <ion-item>
+              <ion-label stacked>{{"Provision" | translate}} *</ion-label>
+              <ion-input type="number" pattern="[0-9]*" formControlName="bonus" [(ngModel)]="bonus"></ion-input>
+            </ion-item>
+            <div *ngIf="addofferForm.controls.bonus.errors">
+              <span *ngIf="addofferForm.controls.bonus.touched && !addofferForm.controls.bonus.required" class="errorblock">
+                {{"Provision" | translate}} {{ "field is required" | translate }}</span>
+            </div>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item text-center>
+              <ion-label stacked>%/&euro;</ion-label>
+              <ion-select interface="popover" formControlName="bonusby" [(ngModel)]="bonusby">
+                <ion-option value="dynamic" checked>%</ion-option>
+                <ion-option value="static">&euro;</ion-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-item>
+        <ion-label stacked>{{"Add Photograph" | translate}} *</ion-label>
+      </ion-item>
+      <!-- 
+          console.log('images01',this.oldImgFirst);
+      console.log('images02',this.oldImgSecond);
+      console.log('images03',this.oldImgThird);
+      console.log('images04',this.oldImgFourth);
+       -->
+      <ion-item-group>
+        <ion-item *ngIf="oldImgFirst">
+          <ion-thumbnail item-start>
+            <img src="{{oldImgFirst}}">
+          </ion-thumbnail>
+          <button ion-button icon-left item-end (click)="deleteold(offerid,oldImgFirst_id,1)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item>
+
+        <ion-item *ngIf="!oldImgFirst">
+          <ion-thumbnail item-start [hidden]="first_Image === null">
+            <img src="{{pathForImage(first_Image)}}">
+          </ion-thumbnail>
+          <p [hidden]="first_Image !== null">{{"Add Photograph" | translate}}</p>
+          <p [hidden]="first_Image === null">{{cur_first_name}}</p>
+          <button [hidden]="first_Image !== null" ion-button icon-left item-end (click)="presentActionSheet(1)">
+            <ion-icon name="camera"></ion-icon>{{"Select Image" | translate}}
+          </button>
+          <button ion-button icon-left item-end (click)="uploadImage(1)" [disabled]="first_Image === null" *ngIf="!is_uploaded_first_Image">
+            <ion-icon name="cloud-upload"></ion-icon>{{"Upload" | translate}}
+          </button>
+          <button ion-button icon-left item-end (click)="delete(1)" [hidden]="first_Image === null">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item>
+
+        <ion-item *ngIf="oldImgSecond">
+          <ion-thumbnail item-start>
+            <img src="{{oldImgSecond}}">
+          </ion-thumbnail>
+          <button ion-button icon-left item-end (click)="deleteold(offerid,oldImgSecond_id,2)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item *ngIf="!oldImgSecond">
+          <ion-thumbnail item-start [hidden]="second_Image === null">
+            <img src="{{pathForImage(second_Image)}}">
+          </ion-thumbnail>
+          <p [hidden]="second_Image !== null">{{"Add Photograph" | translate}}</p>
+          <p [hidden]="second_Image === null">{{cur_second_name}}</p>
+          <button [hidden]="second_Image !== null" ion-button icon-left item-end (click)="presentActionSheet(2)" [disabled]="!is_uploaded_first_Image">
+            <ion-icon name="camera"></ion-icon>{{"Select Image" | translate}}
+          </button>
+          <button ion-button icon-left item-end (click)="uploadImage(2)" [disabled]="second_Image === null" *ngIf="!is_uploaded_second_Image">
+            <ion-icon name="cloud-upload"></ion-icon>{{"Upload" | translate}}
+          </button>
+          <button ion-button icon-left item-end (click)="delete(2)" [hidden]="second_Image === null">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item>
+
+        <ion-item *ngIf="oldImgThird">
+          <ion-thumbnail item-start>
+            <img src="{{oldImgThird}}">
+          </ion-thumbnail>
+          <button ion-button icon-left item-end (click)="deleteold(offerid,oldImgThird_id,3)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item *ngIf="!oldImgThird">
+          <ion-thumbnail item-start [hidden]="third_Image === null">
+            <img src="{{pathForImage(third_Image)}}">
+          </ion-thumbnail>
+          <p [hidden]="third_Image !== null">{{"Add Photograph" | translate}}</p>
+          <p [hidden]="third_Image === null">{{cur_third_name}}</p>
+          <button [hidden]="third_Image !== null" ion-button icon-left item-end (click)="presentActionSheet(3)" [disabled]="!is_uploaded_second_Image">
+            <ion-icon name="camera"></ion-icon>{{"Select Image" | translate}}
+          </button>
+          <button ion-button icon-left item-end (click)="uploadImage(3)" [disabled]="third_Image === null" *ngIf="!is_uploaded_third_Image">
+            <ion-icon name="cloud-upload"></ion-icon>{{"Upload" | translate}}
+          </button>
+          <button ion-button icon-left item-end (click)="delete(3)" [hidden]="third_Image === null">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item *ngIf="oldImgFourth">
+          <ion-thumbnail item-start>
+            <img src="{{oldImgFourth}}">
+          </ion-thumbnail>
+          <button ion-button icon-left item-end (click)="deleteold(offerid,oldImgFourth_id,4)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item>
+        <ion-item *ngIf="!oldImgFourth">
+          <ion-thumbnail item-start [hidden]="fourth_Image === null">
+            <img src="{{pathForImage(fourth_Image)}}">
+          </ion-thumbnail>
+          <p [hidden]="fourth_Image !== null">{{"Add Photograph" | translate}}</p>
+          <p [hidden]="fourth_Image === null">{{cur_fourth_name}}</p>
+          <button [hidden]="fourth_Image !== null" ion-button icon-left item-end (click)="presentActionSheet(4)" [disabled]="!is_uploaded_third_Image">
+            <ion-icon name="camera"></ion-icon>{{"Select Image" | translate}}
+          </button>
+          <button ion-button icon-left item-end (click)="uploadImage(4)" [disabled]="fourth_Image === null" *ngIf="!is_uploaded_fourth_Image">
+            <ion-icon name="cloud-upload"></ion-icon>{{"Upload" | translate}}
+          </button>
+          <button ion-button icon-left item-end (click)="delete(4)" [hidden]="fourth_Image === null">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item>
+        <span *ngIf="isanyuploaded" class="errorblock">
+          {{"No offer image uploaded" | translate}}</span>
+      </ion-item-group>
+      <ion-item>
+        <ion-label>{{"Main-Category" | translate}} *</ion-label>
+        <ion-select interface="popover" formControlName="mcategory" [(ngModel)]="mcategory" (ionChange)="maincatchange($event)">
+          <ion-option *ngFor="let item of maincat" value="{{item.id}}">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{"Category" | translate}}*</ion-label>
+        <ion-select interface="popover" formControlName="category" [(ngModel)]="category" (ionChange)="subcatchange($event)">
+          <ion-option *ngFor="let item of subcat" value="{{item.id}}">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{"Subcategory" | translate}}*</ion-label>
+        <ion-select interface="popover" formControlName="subcategory" [(ngModel)]="subcategory">
+          <ion-option *ngFor="let item of sub_subcat" value="{{item.id}}">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{"Brand name" | translate}}*</ion-label>
+        <ion-select interface="popover" formControlName="brand" [(ngModel)]="brand">
+          <ion-option *ngFor="let item of brands" value="{{item.id}}">{{item.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{"Department" | translate}}*</ion-label>
+        <ion-select interface="popover" formControlName="department" [(ngModel)]="department">
+          <ion-option *ngFor="let item of departments" value="{{item.id}}">{{item.department_name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{"Start Date" | translate}}*</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="offerstartdate" formControlName="offerstartdate"> </ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{"End Date" | translate}}*</ion-label>
+        <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="offerenddate" formControlName="offerenddate"> </ion-datetime>
+      </ion-item>
+      <ion-grid>
+        <ion-row *ngFor="let field of fieldArray; let i = index">
+
+          <ion-col col-10 no-padding>
+            <ion-item>
+              <ion-label stacked>{{"Characteristics" | translate}}</ion-label>
+              <ion-input type="text" value="{{field.chartics}}" name="{{field.chartics}}" readonly></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item class="no-line" text-center>
+              <button ion-button (click)="deleteFieldValue(i)" icon-only clear>
+                <ion-icon name="close-circle" color="danger"></ion-icon>
+              </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col col-10>
+            <ion-item>
+              <ion-label stacked>{{"Characteristics" | translate}}</ion-label>
+              <ion-input type="text" [(ngModel)]="newAttribute.chartics" formControlName="newAttribute"></ion-input>
+            </ion-item>
+          </ion-col>
+          <ion-col col-2>
+            <ion-item class="no-line" text-center>
+              <button ion-button (click)="addFieldValue()" icon-only clear>
+                <ion-icon name="add-circle" color="primary"></ion-icon>
+              </button>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-item>
+        <ion-label stacked>{{"Description" | translate}}</ion-label>
+        <ion-textarea type="text" [(ngModel)]="offerdesc" formControlName="offerdesc"></ion-textarea>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>{{"Delivery Warranty" | translate}}</ion-label>
+        <ion-input type="text" [(ngModel)]="delwarranty" formControlName="delwarranty"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>{{"Specification" | translate}}</ion-label>
+        <ion-input type="text" [(ngModel)]="offerspecs" formControlName="offerspecs"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked>{{"Additional Information" | translate}}</ion-label>
+        <ion-input type="text" [(ngModel)]="offeraddinfo" formControlName="offeraddinfo"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button full color="loginbtn" [disabled]="!addofferForm.valid">{{"Save Offer" | translate}}</button>
+  </form>
+</ion-content>

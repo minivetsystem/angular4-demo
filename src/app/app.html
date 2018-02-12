@@ -1,0 +1,25 @@
+<ion-split-pane when="md">
+  <ion-menu [content]="content">
+    <!-- Menu Main Top -->
+    <ion-header class="header-background-image">
+      <ion-thumbnail>
+        <img src="" width="60%">
+      </ion-thumbnail>
+    </ion-header>
+    <!-- Menu Main List -->
+    <ion-content>
+      <ion-list no-lines>
+        <ion-item (click)="showchildmenu()" *ngIf="showrolewise">Control Panel</ion-item>
+        <ion-item-group submenu [class.visible]="showsubmenu">
+          <ion-item submenu-item>Account</ion-item>
+          <ion-item submenu-item>Open business</ion-item>
+        </ion-item-group>
+        <button margin-left menuClose ion-item item-title no-padding main-menu *ngFor="let p of pages" (click)="openPage(p)">
+          {{p.title | translate}}
+        </button>
+      </ion-list>
+    </ion-content>
+  </ion-menu>
+  <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->
+  <ion-nav [root]="rootPage" #content main swipeBackEnabled="false"></ion-nav>
+</ion-split-pane>
