@@ -1,1 +1,1 @@
-This is a demo sctipt written in anguler 4
+This is a demo sctipt written in angular 4
